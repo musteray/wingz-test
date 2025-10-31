@@ -1,0 +1,40 @@
+services:
+  web:
+    build: ./
+    restart: always
+    ports:
+      - "${DJANGO_PORT}:8000"
+    command: python manage.py runserver 0.0.0.0:8000
+    env_file:
+      - ./.env
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - db
+  db:
+    image: postgres:14.3
+    restart: always
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+    # env_file:
+    #   - ./.env
+    ports:
+      - "${POSTGRES_PORT}:5432"
+  pgadmin:
+    image: dpage/pgadmin4:9.9
+    restart: always
+    ports:
+      - "${PGADMIN_PORT}:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: ${PGADMIN_CONFIG_SERVER_MODE}
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: ${PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED}
+    depends_on:
+      - db
