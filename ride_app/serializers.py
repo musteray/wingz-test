@@ -12,6 +12,72 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ['id_user']
 
 
+class UserCreateSerializer(serializers.ModelSerializer):
+    """Serializer for creating new users with password handling"""
+    password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
+    password_confirm = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
+    
+    class Meta:
+        model = User
+        fields = ['id_user', 'username', 'email', 'password', 'password_confirm', 
+                  'role', 'first_name', 'last_name', 'phone_number']
+        read_only_fields = ['id_user']
+    
+    def validate(self, attrs):
+        """Validate that passwords match"""
+        if attrs.get('password') != attrs.get('password_confirm'):
+            raise serializers.ValidationError({"password": "Password fields didn't match."})
+        return attrs
+    
+    def validate_email(self, value):
+        """Ensure email is unique"""
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("A user with this email already exists.")
+        return value
+    
+    def validate_username(self, value):
+        """Ensure username is unique"""
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("A user with this username already exists.")
+        return value
+    
+    def validate_role(self, value):
+        """Validate role"""
+        valid_roles = ['admin', 'driver', 'rider']
+        if value not in valid_roles:
+            raise serializers.ValidationError(f"Role must be one of: {', '.join(valid_roles)}")
+        return value
+    
+    def create(self, validated_data):
+        """Create user with hashed password"""
+        # Remove password_confirm as it's not needed for user creation
+        validated_data.pop('password_confirm')
+        
+        # Extract password
+        password = validated_data.pop('password')
+        
+        # Create user instance
+        user = User(**validated_data)
+        user.set_password(password)  # Hash the password
+        user.save()
+        
+        return user
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    """Serializer for updating user information"""
+    class Meta:
+        model = User
+        fields = ['role', 'first_name', 'last_name', 'email', 'phone_number']
+    
+    def validate_email(self, value):
+        """Ensure email is unique (excluding current user)"""
+        user = self.instance
+        if User.objects.filter(email=value).exclude(id_user=user.id_user).exists():
+            raise serializers.ValidationError("A user with this email already exists.")
+        return value
+
+
 class RideEventSerializer(serializers.ModelSerializer):
     """Serializer for RideEvent model"""
     class Meta:

@@ -1,0 +1,471 @@
+{
+	"info": {
+		"_postman_id": "c8922c28-21da-471d-a19c-5564d7ea5d3b",
+		"name": "Wingz - Exercise",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27892702"
+	},
+	"item": [
+		{
+			"name": "Public",
+			"item": [
+				{
+					"name": "Creater User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\": \"rider\",\r\n    \"first_name\": \"Lorem\",\r\n    \"last_name\": \"Lorem\",\r\n    \"email\": \"email@test1.com\",\r\n    \"username\": \"rider\",\r\n    \"password\": \"securepassword\",\r\n    \"password_confirm\": \"securepassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/api/v1/register/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    // \"username\": \"rider\",\r\n    \"password\": \"securepassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/api/v1/authenticate/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"authenticate",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "List Users",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token 4f854649e3c3093a07cb82938cebcf567cf81444",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:9000/api/v1/users/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create User",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token 4f854649e3c3093a07cb82938cebcf567cf81444",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"role\": \"rider\",\r\n    \"first_name\": \"test\",\r\n    \"last_name\": \"test\",\r\n    \"email\": \"email+1@test.com\",\r\n    \"username\": \"rider\",\r\n    \"password\": \"securepassword\",\r\n    \"password_confirm\": \"securepassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9000/api/v1/users/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token 4f854649e3c3093a07cb82938cebcf567cf81444",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"role\": \"rider\",\r\n    \"first_name\": \"Rider - First Name\",\r\n    \"last_name\": \"Rider - Last Name\",\r\n    \"email\": \"email+1@test.com\",\r\n    \"phone_number\": \"+1234\"\r\n    // \"username\": \"rider\",\r\n    // \"password\": \"securepassword\",\r\n    // \"password_confirm\": \"securepassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9000/api/v1/users/8/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"8",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Details",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token 4f854649e3c3093a07cb82938cebcf567cf81444",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:9000/api/v1/users/8/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"8",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Rides",
+					"item": [
+						{
+							"name": "List Rides",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token 4f854649e3c3093a07cb82938cebcf567cf81444",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:9000/api/v1/rides/?rider_email=email_2@test.com&ordering=-pickup_time",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"api",
+										"v1",
+										"rides",
+										""
+									],
+									"query": [
+										{
+											"key": "rider_email",
+											"value": "email_2@test.com"
+										},
+										{
+											"key": "ordering",
+											"value": "-pickup_time"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ride Details",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token 4f854649e3c3093a07cb82938cebcf567cf81444",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:9000/api/v1/rides/2/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"api",
+										"v1",
+										"rides",
+										"2",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Ride",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token 4f854649e3c3093a07cb82938cebcf567cf81444",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\": \"pickup\",\r\n    \"id_rider\": 8,\r\n    \"id_driver\": 9,\r\n    \"pickup_latitude\": 11.0216217,\r\n    \"pickup_longitude\": 124.6005611,\r\n    \"dropoff_latitude\": 11.0229015,\r\n    \"dropoff_longitude\": 124.5979145,\r\n    \"pickup_time\": \"2025-11-02 21:18:15.402272\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9000/api/v1/rides/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"api",
+										"v1",
+										"rides",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Ride-Events",
+					"item": [
+						{
+							"name": "List Ride Events",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token 4f854649e3c3093a07cb82938cebcf567cf81444",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:9000/api/v1/ride-events/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"api",
+										"v1",
+										"ride-events",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Ride Event",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token 4f854649e3c3093a07cb82938cebcf567cf81444",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"LOREM IPSUM\",\r\n    \"id_ride\": 3,\r\n    \"created_at\": \"2025-11-02 20:18:15.402272\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9000/api/v1/ride-events/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"api",
+										"v1",
+										"ride-events",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 4f854649e3c3093a07cb82938cebcf567cf81444",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/api/v1/logout/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"logout",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

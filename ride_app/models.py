@@ -46,9 +46,7 @@ class Ride(models.Model):
     )
     id_driver = models.ForeignKey(
         User, 
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
+        on_delete=models.CASCADE,
         related_name='rides_as_driver',
         db_column='id_driver'
     )

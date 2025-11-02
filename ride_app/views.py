@@ -1,32 +1,57 @@
-# views.py
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
+from rest_framework.filters import OrderingFilter
 from django.db.models import Prefetch, Q, F, ExpressionWrapper, FloatField
 from django.db.models.functions import ACos, Sin, Cos, Radians, Power, Sqrt
+from django_filters.rest_framework import DjangoFilterBackend
 from django.utils import timezone
 from datetime import timedelta
 from .models import User, Ride, RideEvent
 from .serializers import (
-    UserSerializer, RideListSerializer, RideDetailSerializer,
-    RideCreateUpdateSerializer, RideEventSerializer,
+    UserSerializer, UserCreateSerializer, UserUpdateSerializer, RideListSerializer,
+    RideDetailSerializer, RideCreateUpdateSerializer, RideEventSerializer,
     RideEventCreateUpdateSerializer
 )
 from .permissions import IsAdminUser
 from .filters import RideFilter
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import OrderingFilter
 import math
 
 
 class UserViewSet(viewsets.ModelViewSet):
     """ViewSet for managing Users"""
     queryset = User.objects.all()
-    serializer_class = UserSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
     filterset_fields = ['role', 'email']
     search_fields = ['email', 'first_name', 'last_name']
 
+    def get_serializer_class(self):
+        """Return appropriate serializer based on action"""
+        print(self.__dict__)
+        if self.action == 'create':
+            return UserCreateSerializer
+        elif self.action in ['update', 'partial_update']:
+            return UserUpdateSerializer
+        return UserSerializer
+    
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        
+        if serializer.is_valid():
+            # Create user
+            user = serializer.save()
+            
+            # Generate authentication token
+            token, created = Token.objects.get_or_create(user=user)
+            
+            return Response({
+                'user': UserSerializer(user).data,
+                'token': token.key,
+                'message': 'User registered successfully'
+            }, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class RideViewSet(viewsets.ModelViewSet):
     """
