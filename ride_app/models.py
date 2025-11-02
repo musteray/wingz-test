@@ -5,7 +5,8 @@ from datetime import timedelta
 
 USER_ROLES = [
     ('driver', 'Driver'),
-    ('driver', 'Admin'),
+    ('rider', 'Rider'),
+    ('admin', 'Admin'),
 ]
 RIDE_STATUSES = [
     ('en-route', 'En Route'),
