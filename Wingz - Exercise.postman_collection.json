@@ -19,7 +19,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"role\": \"rider\",\r\n    \"first_name\": \"Lorem\",\r\n    \"last_name\": \"Lorem\",\r\n    \"email\": \"email@test1.com\",\r\n    \"username\": \"rider\",\r\n    \"password\": \"securepassword\",\r\n    \"password_confirm\": \"securepassword\"\r\n}",
+							"raw": "{\r\n    \"role\": \"driver\",\r\n    \"first_name\": \"Mund\",\r\n    \"last_name\": \"Balicante\",\r\n    \"email\": \"video_assess@gmail.com\",\r\n    \"username\": \"driver2\",\r\n    \"password\": \"securepassword\",\r\n    \"password_confirm\": \"securepassword\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -53,7 +53,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"admin\",\r\n    // \"username\": \"rider\",\r\n    \"password\": \"securepassword\"\r\n}",
+							"raw": "{\r\n    // \"username\": \"admin\",\r\n    \"username\": \"driver2\",\r\n    \"password\": \"securepassword\"\r\n    // \"password\": \"xxx\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -71,6 +71,46 @@
 								"api",
 								"v1",
 								"authenticate",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 424cf246dc461155561eb73b72a0c73201abd5ac",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/api/v1/logout/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"logout",
 								""
 							]
 						}
@@ -110,6 +150,38 @@
 										"api",
 										"v1",
 										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete User",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token 4f854649e3c3093a07cb82938cebcf567cf81444",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:9000/api/v1/users/10/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9000",
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"10",
 										""
 									]
 								}
@@ -249,7 +321,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:9000/api/v1/rides/?rider_email=email_2@test.com&ordering=-pickup_time",
+									"raw": "http://localhost:9000/api/v1/rides/?page=1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -263,12 +335,23 @@
 									],
 									"query": [
 										{
-											"key": "rider_email",
-											"value": "email_2@test.com"
+											"key": "latitude",
+											"value": "11.0240407",
+											"disabled": true
+										},
+										{
+											"key": "longitude",
+											"value": "124.5985103",
+											"disabled": true
 										},
 										{
 											"key": "ordering",
-											"value": "-pickup_time"
+											"value": "distance_to_pickup",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1"
 										}
 									]
 								}
@@ -323,7 +406,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"status\": \"pickup\",\r\n    \"id_rider\": 8,\r\n    \"id_driver\": 9,\r\n    \"pickup_latitude\": 11.0216217,\r\n    \"pickup_longitude\": 124.6005611,\r\n    \"dropoff_latitude\": 11.0229015,\r\n    \"dropoff_longitude\": 124.5979145,\r\n    \"pickup_time\": \"2025-11-02 21:18:15.402272\"\r\n}",
+									"raw": "{\r\n    \"status\": \"en-route\",\r\n    \"id_rider\": 8,\r\n    \"id_driver\": 9,\r\n    \"pickup_latitude\": 11.0216217,\r\n    \"pickup_longitude\": 124.6005611,\r\n    \"dropoff_latitude\": 11.0229015,\r\n    \"dropoff_longitude\": 124.5979145,\r\n    \"pickup_time\": \"2025-11-02 21:18:15.402272\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -399,7 +482,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"description\": \"LOREM IPSUM\",\r\n    \"id_ride\": 3,\r\n    \"created_at\": \"2025-11-02 20:18:15.402272\"\r\n}",
+									"raw": "{\r\n    \"description\": \"Status changed to dropoff\",\r\n    \"id_ride\": 23,\r\n    \"created_at\": \"2025-11-06 20:18:15.402272\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -435,7 +518,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Token 4f854649e3c3093a07cb82938cebcf567cf81444",
+								"value": "Token 424cf246dc461155561eb73b72a0c73201abd5ac",
 								"type": "default"
 							}
 						],
